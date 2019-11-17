@@ -1,0 +1,2 @@
+module ChatMemo
+end

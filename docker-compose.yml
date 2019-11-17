@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "23306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d
+    env_file: ./mysql/.env.dev
+  app:
+    build: .
+    command: bash -c 'bundle exec hanami server --host 0.0.0.0 -p 2300'
+    volumes:
+      - .:/chat-memo
+    ports:
+      - "2300:2300"
+    depends_on:
+      - db
+
